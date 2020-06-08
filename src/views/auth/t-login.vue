@@ -8,21 +8,19 @@
         <h1 class="">Вход</h1>
         <div class="login-line mb-3"></div>
         <input
-          required type="email"
+          type="email"
           placeholder="email"
           class="form-control form-input login-input mt-3 p-3"
           v-model="email"
          >
-           <span >Err
-           </span>
+           <span >Err </span>
         <input
-          required type="password"
+          type="password"
           placeholder="Введите пароль"
           class="form-control form-input  email-input mt-3 mb-5 p-3"
           v-model="password"
         >
-         <span >Err
-           </span>
+         <span >Err </span>
         <button type="submit" class="btn btn-success mb-5">ВОЙТИ</button>
       </div>
     </form>
@@ -31,8 +29,10 @@
 </template>
 
 <script>
+import {} from 'vuelidate/lib/validators';
+
 export default {
-  name: 't-login',
+  name: 'login',
   data() {
     return {
       email: '',
@@ -41,7 +41,12 @@ export default {
   },
   methods: {
     submitLogin() {
+      console.log('submit on login');
     },
+  },
+  validations: {
+    email: {},
+    password: {},
   },
 };
 </script>

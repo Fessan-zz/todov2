@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
-import tRegister from '../components/auth/t-register.vue';
+import tRegister from '../views/auth/t-register.vue';
 
 
 Vue.use(VueRouter);
@@ -15,7 +15,7 @@ const routes = [
   {
     path: '/login',
     name: 'login',
-    component: () => import('../components/auth/t-login.vue'),
+    component: () => import('../views/auth/t-login.vue'),
   },
 ];
 
