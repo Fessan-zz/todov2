@@ -7,36 +7,49 @@
         <h1 class="">Регистрация</h1>
 
         <!--                email                -->
-         <div
-          class="form-item"
-          :class="{ 't-register--error': $v.email.$error }"
-          >
-            <input
+        <div
+          class="form-group"
+          :class="{ 'errorInput': $v.email.$error }"
+        >
+          <input
             type="email"
-            placeholder="email"
-            class="form-control form-input login-input mt-3 p-3"
-            v-model="email"
-            @change="$v.email.touch()"
-         >
-         </div>
+            class="form-control form-input  email-input mt-3 p-3"
+            v-model.trim="$v.email.$model"
+          />
           <div class="error" v-if="!$v.email.required">Поле обязательно для заполнения</div>
           <div class="error" v-if="!$v.email.email">Введите действительный email</div>
+        </div>
 
           <!--             password      -->
-        <input
-          type="password"
-          placeholder="Введите пароль"
-          class="form-control form-input  email-input mt-3 p-3"
-          v-model="password"
-         >
-         <span >Err</span>
-         <input
-          type="password"
-          placeholder="Повторите пароль"
-          class="form-control form-input  email-input mt-3 mb-5 p-3"
-          v-model="repeatPassword"
-         >
-         <span >Err  </span>
+        <div
+          class="form-group"
+          :class="{ 'errorInput': $v.password.$error }"
+        >
+          <input
+            type="password"
+            class="form-control form-input  email-input mt-3 p-3"
+            v-model.trim="$v.password.$model"
+          />
+          <div class="error" v-if="!$v.password.required">Поле обязательно для заполнения</div>
+          <div class="error" v-if="!$v.password.minLength">
+            Пароль не меньше{{ $v.password.$params.minLength.min }} символов
+          </div>
+        </div>
+
+            <!--          repeatPassword -->
+         <div
+          class="form-group"
+          :class="{ 'errorInput': $v.repeatPassword.$error }"
+        >
+          <input
+            type="password"
+            class="form-control form-input  email-input mt-3 p-3"
+            v-model.trim="$v.repeatPassword.$model"
+          />
+          <div class="error" v-if="!$v.repeatPassword.sameAsPassword">
+            Пароли не совпадают.
+          </div>
+        </div>
          <span class="mb-2" >Уже есть аккаунт? <router-link to="/login">Войти</router-link> </span>
         <button type="submit" class="btn btn-success mb-5">ЗАРЕГИСТРИРОВАТЬСЯ</button>
       </div>
@@ -47,7 +60,9 @@
 
 <script>
 
-import { required, email } from 'vuelidate/lib/validators';
+import {
+  required, email, minLength, sameAs,
+} from 'vuelidate/lib/validators';
 
 export default {
   name: 'register',
@@ -63,12 +78,27 @@ export default {
       required,
       email,
     },
+    password: {
+      required,
+      minLength: minLength(6),
+    },
+    repeatPassword: {
+      sameAsPassword: sameAs('password'),
+    },
   },
 };
 </script>
 
 <style lang="scss">
+.form-group .error {
+  display: none;
+}
+.form-group  .errorInput {
+  .error {
+    display: block;
+  }
+}
 .t-register--error{
-  background-color: red;
+  border-color: red;
 }
 </style>
