@@ -1,0 +1,289 @@
+@font-face{
+  font-family: 'Circe';
+  src: url(../fonts/circe/Circe-Light.ttf);
+}
+
+@font-face{
+  font-family: 'Circe-Bold';
+  src: url(../fonts/circe/Circe-Bold.ttf);
+}
+
+@font-face{
+  font-family: 'Roboto';
+  src: url(../fonts/roboto/Roboto-Light.ttf);
+}
+
+@font-face{
+  font-family: 'Roboto-Italic';
+  src: url(../fonts/roboto/Roboto-Italic.ttf);
+}
+
+
+
+body {
+  width: 100%;
+  max-width: 1920px;
+  font-family: 'Roboto';
+}
+
+.body-login, .t-main-wrapper {
+  background-image: url('../img/backLogin.jpeg');
+  background-size: 100%;
+  background-position:  top center;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+
+.container {
+  max-width: 1280px;
+  width: 100%;
+}
+
+/*               login     */
+.login {
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0px 10px 11px rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  width: 560px;
+}
+
+.login-wrap h1 {
+  font-family: 'Circe-Bold';
+  font-style: normal;
+  font-weight: bold;
+  font-size: 64px;
+  line-height: 94px;
+  letter-spacing: 0.1em;
+  color: #4E9243;
+}
+
+.login-line {
+  background: #F2F2F2;
+  height: 3px;
+  width: 464px;
+}
+.form-input {
+  box-sizing: border-box;
+  border-radius: 6px;
+  background-color: #ffff;
+  height: 29px;
+  font-family:'Roboto-Italic';
+  width: 310px;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 14px;
+}
+
+.login-input{
+  border: 1px solid #4E9243;
+}
+
+.email-input {
+  border: 1px solid #EB5757;
+}
+
+.login-wrap button {
+  width: 310px;
+  font-size: 12px;
+  line-height: 14px;
+}
+
+
+/* TaskList                       */
+
+.body-dosk{
+  background-image: url('../img/taskListbck.jpg');
+  background-size: 100%;
+  background-position:  top center;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+
+.navbar a {
+  font-size: 14px;
+  line-height: 16px;
+  color: #FFFFFF;
+}
+
+.tasklist__wrap{
+  width: 100%;
+  max-width: 560px;
+
+}
+
+.tasklist__wrap h1{
+  font-family: "Circe";
+  font-style: normal;
+  font-weight: bold;
+  font-size: 50px;
+  line-height: 94px;
+  text-align: center;
+  letter-spacing: 0.1em;
+  color: #FFFFFF;
+}
+.task-line {
+  width: 530px;
+  background: #FFFFFF;
+  height: 3px;
+  
+}
+
+.add__task {
+  width: 81px;
+  height: 40px;
+  background-color: #ffff;
+  border: 1px solid #4E9243;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  text-align: center;
+
+}
+
+.dropdown__tasklist{
+  width: 93px;
+  height: 40px;
+  background: #FFFFFF;
+  border: 1px solid #4E9243;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  text-align: center;
+  
+}
+
+.dropdown__tasklist a{
+  color: #6F6F6F;
+  
+}
+
+.tasklist{
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  max-width: 560px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid #4E9243;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px 10px 10px 10px;
+}
+
+.tasklist__item{
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 28px;
+  padding: 10px;
+  border-bottom: 1px solid #4E9243;
+
+}
+
+.tasklist__item a{
+  color: #6F6F6F;
+}
+.tasklist__item a:hover {
+  text-decoration: none;
+}
+
+.not_completed_item{
+  background: #6AE356;
+}
+
+.empty_item {
+  background-color: #F2F2F2;
+}
+
+.compledet_item{
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.task {
+  max-width: 559px;
+  width: 100%;
+  background: #FFFFFF;
+  border-radius: 12px;
+}
+
+
+/*               task  */
+
+.task a {
+  font-size: 24px;
+  line-height: 28px;
+  color: #333333;
+}
+
+.task a:hover{
+  text-decoration: none;
+}
+
+.task h3 {
+  font-size: 36px;
+  line-height: 42px;
+  color: #4E9243;
+}
+
+.list_poditems >span {
+  font-family: "Circe";
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 35px;
+  letter-spacing: 0.1em;
+  color: #6F6F6F;
+}
+
+.list_poditems{
+  border-bottom: 2px solid #4E9243;;
+}
+
+
+
+/* redatc task */
+
+.redact__task {
+  max-width: 560px;
+  width: 100%;
+  background: #FFFFFF;
+  box-shadow: 0px 10px 11px rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  border-bottom: 2px solid #4E9243;
+}
+
+.redact__task button {
+  margin-left: 80%;
+}
+
+.redact__task h3{
+  font-family: "Circe";
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 35px;
+  letter-spacing: 0.1em;
+  color: #4E9243;
+}
+
+.redact_span {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 14px;
+  color: #000000;
+}
+
+.redact_input{
+  max-width: 492px;
+  width: 100%;
+  margin-left: 14px;
+  margin-bottom: 95px;
+  font-family: Roboto;
+  font-style: italic;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 14px;
+}
+
+
