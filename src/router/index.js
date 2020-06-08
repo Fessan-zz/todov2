@@ -17,6 +17,11 @@ const routes = [
     name: 'login',
     component: () => import('../views/auth/t-login.vue'),
   },
+  {
+    path: '/taskList',
+    name: 'taskList',
+    component: () => import('../views/tasks/t-task-list.vue'),
+  },
 ];
 
 const router = new VueRouter({

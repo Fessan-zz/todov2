@@ -1,7 +1,10 @@
 <template>
   <div class="t-register">
     <div class="container container_p">
-    <form class="login m-auto">
+    <form
+      class="login m-auto"
+      @submit.prevent="submitRegister"
+    >
       <div class="login-wrap d-flex justify-content-center align-items-center
       flex-column form-group">
         <h1 class="">Регистрация</h1>
@@ -9,7 +12,7 @@
         <!--                email                -->
         <div
           class="form-group"
-          :class="{ 'errorInput': $v.email.$error }"
+          :class="{ 'errorInput': ($v.email.$dirty && $v.email.$error)}"
         >
           <input
             type="email"
@@ -23,7 +26,7 @@
           <!--             password      -->
         <div
           class="form-group"
-          :class="{ 'errorInput': $v.password.$error }"
+          :class="{ 'errorInput': ($v.password.$dirty && $v.password.$error)}"
         >
           <input
             type="password"
@@ -39,7 +42,7 @@
             <!--          repeatPassword -->
          <div
           class="form-group"
-          :class="{ 'errorInput': $v.repeatPassword.$error }"
+          :class="{ 'errorInput': ($v.repeatPassword.$dirty && $v.repeatPassword.$error)}"
         >
           <input
             type="password"
@@ -84,6 +87,19 @@ export default {
     },
     repeatPassword: {
       sameAsPassword: sameAs('password'),
+    },
+  },
+  methods: {
+    submitRegister() {
+      const formData = {
+        email: this.email,
+        password: this.password,
+      };
+      console.log(formData);
+      this.email = '';
+      this.password = '';
+      this.repeatPassword = '';
+      this.$router.push('/taskList');
     },
   },
 };
