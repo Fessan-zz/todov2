@@ -7,20 +7,35 @@
       >
         <h1 class="">Вход</h1>
         <div class="login-line mb-3"></div>
-        <input
-          type="email"
-          placeholder="email"
-          class="form-control form-input login-input mt-3 p-3"
-          v-model="email"
-         >
-           <span >Err </span>
-        <input
-          type="password"
-          placeholder="Введите пароль"
-          class="form-control form-input  email-input mt-3 mb-5 p-3"
-          v-model="password"
+                            <!-- email -->
+        <div
+          class="form-group"
+          :class="{ 'errorInput': ($v.email.$dirty && $v.email.$error)}"
         >
-         <span >Err </span>
+          <input
+            type="email"
+            class="form-control form-input  email-input mt-3 p-3"
+            v-model.trim="$v.email.$model"
+          />
+          <div class="error" v-if="!$v.email.required">Поле обязательно для заполнения</div>
+          <div class="error" v-if="!$v.email.email">Введите действительный email</div>
+        </div>
+                          <!-- password -->
+        <div
+          class="form-group"
+          :class="{ 'errorInput': ($v.password.$dirty && $v.password.$error)}"
+        >
+          <input
+            type="password"
+            class="form-control form-input  email-input mt-3 p-3"
+            v-model.trim="$v.password.$model"
+          />
+          <div class="error" v-if="!$v.password.required">Поле обязательно для заполнения</div>
+          <div class="error" v-if="!$v.password.minLength">
+            Пароль не меньше{{ $v.password.$params.minLength.min }} символов
+          </div>
+        </div>
+
         <button type="submit" class="btn btn-success mb-5">ВОЙТИ</button>
       </div>
     </form>
@@ -29,7 +44,7 @@
 </template>
 
 <script>
-import {} from 'vuelidate/lib/validators';
+import { required, email, minLength } from 'vuelidate/lib/validators';
 
 export default {
   name: 'login',
@@ -39,14 +54,25 @@ export default {
       password: '',
     };
   },
-  methods: {
-    submitLogin() {
-      console.log('submit on login');
+  validations: {
+    email: {
+      required,
+      email,
+    },
+    password: {
+      required,
+      minLength: minLength(6),
     },
   },
-  validations: {
-    email: {},
-    password: {},
+  methods: {
+    submitLogin() {
+      const formData = {
+        email: this.email,
+        password: this.password,
+      };
+      console.log('submit on login', formData);
+      this.$router.push('/taskList');
+    },
   },
 };
 </script>
