@@ -15,7 +15,7 @@
           :class="{ 'errorInput': ($v.email.$dirty && $v.email.$error)}"
         >
           <input
-            type="email"
+            type="text"
             class="form-control form-input  email-input mt-3 p-3"
             v-model.trim="$v.email.$model"
           />
@@ -53,8 +53,36 @@
             Пароли не совпадают.
           </div>
         </div>
-         <span class="mb-2" >Уже есть аккаунт? <router-link to="/login">Войти</router-link> </span>
-        <button type="submit" class="btn btn-success mb-5">ЗАРЕГИСТРИРОВАТЬСЯ</button>
+         <span class="mb-2">
+           Уже есть аккаунт?
+            <router-link to="/login">
+            Войти
+            </router-link>
+          </span>
+        <button
+          type="submit"
+          class="btn btn-success mb-5"
+          >
+            ЗАРЕГИСТРИРОВАТЬСЯ
+          </button>
+          <p
+            class="typo__p"
+            v-if="submitStatus === 'OK'"
+          >
+            Thanks for your submission!
+          </p>
+          <p
+            class="typo__p"
+            v-if="submitStatus === 'ERROR'"
+          >
+            Please fill the form correctly.
+          </p>
+          <p
+            class="typo__p"
+            v-if="errorInfo.length"
+          >
+            {{errorInfo}}
+          </p>
       </div>
     </form>
   </div>
@@ -66,6 +94,7 @@
 import {
   required, email, minLength, sameAs,
 } from 'vuelidate/lib/validators';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'register',
@@ -74,6 +103,9 @@ export default {
       email: '',
       password: '',
       repeatPassword: '',
+      submitStatus: null,
+      srt: '',
+      errorInfo: '',
     };
   },
   validations: {
@@ -90,16 +122,35 @@ export default {
     },
   },
   methods: {
-    submitRegister() {
+    ...mapActions(['REGISTER']),
+    async submitRegister() {
       const formData = {
         email: this.email,
         password: this.password,
+        str: 'register',
       };
-      console.log(formData);
-      this.email = '';
-      this.password = '';
-      this.repeatPassword = '';
-      this.$router.push('/taskList');
+      if (this.$v.$invalid) {
+        this.submitStatus = 'ERROR';
+      } else {
+        try {
+          await this.REGISTER(formData);
+          this.$router.push('/taskList');
+        // eslint-disable-next-line no-empty
+        } catch (e) {}
+      }
+    },
+  },
+  computed: {
+    ...mapGetters(['GET_ERROR']),
+    error() {
+      return this.GET_ERROR;
+    },
+  },
+  watch: {
+    error(fbError) {
+      if (fbError.code === 'auth/email-already-in-use') {
+        this.errorInfo = 'Данная почта уже используется';
+      }
     },
   },
 };

@@ -13,7 +13,7 @@
           :class="{ 'errorInput': ($v.email.$dirty && $v.email.$error)}"
         >
           <input
-            type="email"
+            type="text"
             class="form-control form-input  email-input mt-3 p-3"
             v-model.trim="$v.email.$model"
           />
@@ -36,7 +36,30 @@
           </div>
         </div>
 
-        <button type="submit" class="btn btn-success mb-5">ВОЙТИ</button>
+        <button
+          type="submit"
+          class="btn btn-success mb-5"
+        >
+          ВОЙТИ
+        </button>
+         <p
+            class="typo__p"
+            v-if="submitStatus === 'OK'"
+          >
+            Thanks for your submission!
+          </p>
+          <p
+            class="typo__p"
+            v-if="submitStatus === 'ERROR'"
+          >
+            Please fill the form correctly.
+          </p>
+          <p
+            class="typo__p"
+            v-if="errorInfo.length"
+          >
+            {{errorInfo}}
+          </p>
       </div>
     </form>
   </div>
@@ -45,6 +68,7 @@
 
 <script>
 import { required, email, minLength } from 'vuelidate/lib/validators';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'login',
@@ -52,6 +76,8 @@ export default {
     return {
       email: '',
       password: '',
+      submitStatus: null,
+      errorInfo: '',
     };
   },
   validations: {
@@ -65,13 +91,38 @@ export default {
     },
   },
   methods: {
-    submitLogin() {
+    async submitLogin() {
       const formData = {
         email: this.email,
         password: this.password,
       };
-      console.log('submit on login', formData);
-      this.$router.push('/taskList');
+      if (this.$v.$invalid) {
+        this.submitStatus = 'ERROR';
+      } else {
+        this.submitStatus = 'PENDING';
+        try {
+          await this.$store.dispatch('LOGIN', formData);
+          this.$router.push('/taskList');
+        } catch (e) {
+          console.log(e, 'ошибка из catch submitLogin');
+        }
+      }
+    },
+  },
+  computed: {
+    ...mapGetters(['GET_ERROR']),
+    error() {
+      return this.GET_ERROR;
+    },
+  },
+  watch: {
+    error(fbError) {
+      if (fbError.code === 'auth/user-not-found') {
+        this.errorInfo = 'Нет такого пользователя';
+      }
+      if (fbError.code === 'auth/wrong-password') {
+        this.errorInfo = 'Не правильный пароль';
+      }
     },
   },
 };
