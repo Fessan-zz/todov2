@@ -1,5 +1,6 @@
 <template>
   <div class="t-task-list">
+    <t-nav-bar />
     <div class="container">
 
 
@@ -35,12 +36,27 @@
 
 import tTaskRedactItem from '@/components/task/t-task-redact-item.vue';
 import tTaskItem from '@/components/task/t-task-item.vue';
+import tNavBar from '@/components/layouts/t-nav-bar.vue';
+import { mapGetters, mapActions } from 'vuex';
+
 
 export default {
   name: 'task-list',
   components: {
     tTaskRedactItem,
     tTaskItem,
+    tNavBar,
+  },
+  methods: {
+    ...mapActions(['FETCH_INFO_USER']),
+  },
+  computed: {
+    ...mapGetters(['GET_INFO_USER']),
+  },
+  async mounted() {
+    if (!Object.keys(this.GET_INFO_USER).length) {
+      await this.$store.dispatch('FETCH_INFO_USER');
+    }
   },
 };
 </script>

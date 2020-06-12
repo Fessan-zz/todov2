@@ -30,6 +30,7 @@ export default {
         await firebase.database().ref(`/users/${uid}/info`).set({
           data: '123',
           str,
+          email,
         });
       } catch (err) {
         commit('SET_ERROR', err);

@@ -129,5 +129,7 @@ export default {
 </script>
 
 <style lang="scss">
-
+.t-login {
+  padding-top: 25vh;
+}
 </style>

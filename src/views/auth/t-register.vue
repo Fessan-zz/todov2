@@ -157,6 +157,9 @@ export default {
 </script>
 
 <style lang="scss">
+.t-register{
+  padding-top: 25vh;
+}
 .form-group .error {
   display: none;
 }

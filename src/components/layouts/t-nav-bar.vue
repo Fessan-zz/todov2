@@ -2,7 +2,7 @@
   <div class="t-nav-bar">
     <div class="container">
       <nav class="navbar d-flex justify-content-end">
-      <a href="/login.html" class="login_a ml-5">Логин пользователя</a>
+      <a href="/login.html" class="login_a ml-5">{{GET_INFO_USER.email}}</a>
       <a href="/" class="logout ml-5">Выйти</a>
       <a href="/">
         <img
@@ -17,16 +17,21 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapMutations, mapGetters } from 'vuex';
 
 export default {
   name: 't-nav-bar',
   methods: {
     ...mapActions(['LOGOUT']),
+    ...mapMutations(['CLEAR_INFO_USER']),
     logout() {
       this.LOGOUT();
+      this.CLEAR_INFO_USER();
       this.$router.push('/?message=logout');
     },
+  },
+  computed: {
+    ...mapGetters(['GET_INFO_USER']),
   },
 };
 </script>
