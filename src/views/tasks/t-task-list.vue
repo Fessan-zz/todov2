@@ -21,53 +21,27 @@
       </div>
 
       <div class="tasklist">
-        <div
-          class="tasklist__item d-flex justify-content-between"
-        >
-          <a href="#">name</a>
-          <div>
-            <a href="#" class="redact"
-             >
-              <img src="../../assets/img/pensel.svg" alt="redact"
-              />
-            </a>
-            <a href="#" class="deleteTask" v-on:click="delTodo(item.id)">
-              <img src="../../assets/img/x.svg" alt="delete" />
-            </a>
-          </div>
-        </div>
+        <t-task-item/>
       </div>
-
-      <!---     modal  Redact Task-->
-
+      <t-task-redact-item
+        v-if="false"
+        />
     </div>
-      <!-- <div class="modal-redact"
-      >
-        <form class="redact__task form-group modal__form">
-          <div class="d-flex justify-content-between p-3">
-            <h3>Редактирование задачи</h3>
-            <a href="#">
-              <img src="../../assets/img/xgreen.svg" alt="del" />
-            </a>
-          </div>
-
-          <span class="redact_span ml-3">Наименование задачи</span>
-          <input
-            type="text"
-            class="form-control mt-3 redact_input"
-            placeholder="Введите новое название задачи"
-          />
-          <button type="submit" class="btn btn-success mb-3 r-3">Готово</button>
-        </form>
-      </div> -->
-
   </div>
   </div>
 </template>
 
 <script>
+
+import tTaskRedactItem from '@/components/task/t-task-redact-item.vue';
+import tTaskItem from '@/components/task/t-task-item.vue';
+
 export default {
   name: 'task-list',
+  components: {
+    tTaskRedactItem,
+    tTaskItem,
+  },
 };
 </script>
 
