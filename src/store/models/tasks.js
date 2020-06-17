@@ -10,28 +10,32 @@ export default {
     },
   },
   actions: {
-    async CREATE_TASKS({ commit, dispatch }, title) {
+    async CREATE_TASKS({ dispatch }, title) {
       try {
         const uid = await dispatch('GET_UID');
         const task = await firebase.database().ref(`/users/${uid}/tasks`).push({ title });
-        const infoTask = { title, id: task.key };
-        console.log(infoTask, 'task info2');
-        commit('SET_TASK', infoTask);
-        return infoTask;
+        return task;
       } catch (e) {
         console.log(e);
         throw (e);
       }
     },
-    async FETCH_TASKS({ dispatch }) {
+    async FETCH_TASKS({ commit, dispatch }) {
       try {
         const uid = await dispatch('GET_UID');
         const tasks = (await firebase.database().ref(`/users/${uid}/tasks`).once('value')).val() || {};
-        return Object.keys(tasks).map((key) => ({ ...tasks[key], id: key }));
+        const taskInfo = Object.keys(tasks).map((key) => ({ ...tasks[key], id: key }));
+        commit('SET_TASK', taskInfo);
+        return taskInfo;
       } catch (e) {
         console.log(e);
         throw (e);
       }
+    },
+    async REMOVE_TASK({ dispatch }, id) {
+      const uid = await dispatch('GET_UID');
+      await firebase.database().ref(`/users/${uid}/tasks/${id}`).remove();
+      dispatch('FETCH_TASKS');
     },
   },
   getters: {

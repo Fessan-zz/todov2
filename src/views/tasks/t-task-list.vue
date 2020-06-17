@@ -4,7 +4,7 @@
     <div class="container">
       <t-task-add
         v-if="showAddTask"
-        @showAddInComponents="showAddTask = !showAddTask"
+        @showAddInComponents="showAddTaskFunc"
       />
 
       <div class="tasklist__wrap container"  v-else>
@@ -27,7 +27,12 @@
         </div>
 
         <div class="tasklist">
-          <t-task-item/>
+          <t-task-item
+            v-for="task in GET_ALL_TASKS"
+            :key="task.id"
+            :task_data="task"
+            @removeTask="removeTask"
+          />
         </div>
         <t-task-redact-item
           v-if="false"
@@ -52,7 +57,7 @@ export default {
   data() {
     return {
       showAddTask: false,
-      tasks: [],
+      tasks: {},
     };
   },
   components: {
@@ -61,19 +66,31 @@ export default {
     tNavBar,
     tTaskAdd,
   },
-  methods: {
-    ...mapActions(['FETCH_INFO_USER', 'FETCH_TASKS']),
-  },
   computed: {
     ...mapGetters(['GET_INFO_USER', 'GET_ALL_TASKS']),
+  },
+  methods: {
+    ...mapActions(['FETCH_INFO_USER', 'FETCH_TASKS', 'REMOVE_TASK']),
+    async showAddTaskFunc() {
+      await this.FETCH_TASKS();
+      const info = this.GET_ALL_TASKS;
+      if (info.length) {
+        this.showAddTask = !this.showAddTask;
+      }
+    },
+    removeTask(id) {
+      console.log(id);
+      this.REMOVE_TASK(id);
+    },
   },
   async mounted() {
     if (!Object.keys(this.GET_INFO_USER).length) {
       await this.$store.dispatch('FETCH_INFO_USER');
     }
-
-    this.tasks = await this.FETCH_TASKS();
-    console.log(this.tasks);
+    if (!this.tasks.length) {
+      await this.FETCH_TASKS();
+      this.tasks = this.GET_ALL_TASKS;
+    }
   },
 
 };

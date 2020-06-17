@@ -40,7 +40,7 @@
 
 <script>
 import { required, minLength } from 'vuelidate/lib/validators';
-import { mapGetters, mapActions } from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'task-add',
@@ -49,9 +49,6 @@ export default {
       titleTask: '',
     };
   },
-  computed: {
-    ...mapGetters(['GET_ALL_TASKS']),
-  },
   methods: {
     ...mapActions(['CREATE_TASKS']),
     closeAdd() {
@@ -59,8 +56,7 @@ export default {
     },
     async addTask() {
       try {
-        const task = await this.CREATE_TASKS(this.titleTask);
-        console.log(task);
+        await this.CREATE_TASKS(this.titleTask);
         this.closeAdd();
       } catch (e) {
         console.log(e);
