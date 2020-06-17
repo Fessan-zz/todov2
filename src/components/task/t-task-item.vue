@@ -8,7 +8,7 @@
         <a href="#" class="redact">
           <img src="../../assets/img/pensel.svg" alt="redact"/>
         </a>
-        <a href="#" class="deleteTask" v-on:click="delTodo(item.id)">
+        <a href="#" class="deleteTask">
           <img src="../../assets/img/x.svg" alt="delete" />
         </a>
       </div>
